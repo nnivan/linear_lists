@@ -4,6 +4,10 @@ using namespace std;
 
 int main (){
     list<int> p(137);
-    cout << (p.data) << endl;
-    return 0;   
+    LinearIter<int> l(&p);
+    l.data() = 50;
+    int* k = &l.data();
+    *k = 30;
+    cout << (l.data()) << endl;
+    return 0;
 }

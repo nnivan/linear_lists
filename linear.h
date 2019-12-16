@@ -4,4 +4,5 @@
 #define _S = 0b11
 
 #include "node.cpp"
+#include "iterator.cpp"
 
