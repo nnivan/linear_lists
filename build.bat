@@ -1,1 +1,1 @@
- cls && g++ main.cpp -o main.exe && .\main.exe
+ cls && g++ -std=c++11 main.cpp && .\a.exe
