@@ -22,7 +22,7 @@ public:
         }
     }
 
-    T &operator[] (int i){
+    LinearIter<T>* &operator[] (int i){
         return list[i];
     }
 

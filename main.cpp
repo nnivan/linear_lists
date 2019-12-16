@@ -29,10 +29,12 @@ int main (){
         ->push(42)
         ->push(43)
         ->push(44);
-    // c.print();
+        
+    c[3]->push(45);
+    c.print();
     c.begin();
     while(c.current()){
-        cout << c.current()->data << endl;
+        // cout << c.current()->data << endl;
         c.next();
     }
     return 0;
