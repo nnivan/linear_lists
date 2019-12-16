@@ -14,19 +14,11 @@ class LinearIter
     -g> data()
     -s> data(data)
     -i> next()
-----
+----- virutal -----
     -i> back()
     -s> push(data)
     -s> pop()
+    -b> empty()
 class DlistIter: public LinearIter
-    -i> back()
-    -s> push(data)
-    -s> pop()
 class StackIter: public LinearIter
-    -i> back()
-    -s> push(data)
-    -s> pop()
 class QueueIter: public LinearIter
-    -i> back()
-    -s> push(data)
-    -s> pop()

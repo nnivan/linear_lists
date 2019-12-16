@@ -1,8 +1,8 @@
 template <typename T>
 struct node{
     T data;
-    node* next;
-    node(T d = T(), node* n = nullptr){
+    node<T>* next;
+    node<T>(T d = T(), node<T>* n = nullptr){
         data = d;
         next = n;
     }
