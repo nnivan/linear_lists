@@ -4,6 +4,9 @@ public:
     LinearIter(node<T>* n = nullptr){
         this->curr = n;
     }
+    node<T>* get(){
+        return bottom();
+    }
     T& data(){
         return (curr->data);
     }
@@ -14,12 +17,60 @@ public:
         this->curr = this->curr->prev;
     }
     bool empty(){
-        return curr;
+        return !curr;
     }
-    virtual void push(T data) = 0;
+    bool member(T const& x) {
+        return member_r(x, bottom());
+    }
+    T* find(T const& x) {
+        return find_r(x, bottom());
+    }
+    bool condition(bool cond(T)){
+        return condition_r(cond, bottom());
+    }
+    bool condition_all(bool cond(T)){
+        return condition_r(cond, bottom()) == lenght() ;
+    }
+    int lenght() {
+        if(empty()) return 0;
+        return length_r(bottom());
+    }
+    void print(){
+        print_r(bottom());
+    }
+    virtual LinearIter* push(T data) = 0;
     virtual void pop() = 0;
 protected:
     node<T>* curr;
+    virtual node<T>* bottom(){
+        node<T>* elem = curr;
+        while(elem->prev) elem = elem->prev;
+        return elem;
+    }
+private:
+    bool member_r(T const& x, node<T>* c) {
+        if(x == c->data) return true;
+        if(c->next) return member_r(x, c->next);
+        return false;
+    }
+    T* find_r(T const& x, node<T>* c) {
+        if(x == c->data) return &(c->data);
+        if(c->next) return find_r(x, c->next);
+        return nullptr;
+    }
+    int condition_r(bool cond(T), node<T>* c) {
+        if(!c->next) return cond(c->data);
+        if(cond(c->data)) return 1 + condition_r(cond, c->next);
+        return condition_r(cond, c->next);
+    }
+    int length_r(node<T>* c) {
+        if(c->next) return 1 + length_r(c->next);
+        return 1;
+    }
+    int print_r(node<T>* c) {
+        cout << c->data << " - ";
+        if(c->next) print_r(c->next);
+    }
 };
 
 
@@ -29,7 +80,7 @@ public:
     QueueIter(node<T>* n = nullptr): LinearIter<T>(n){
         this->first = this->curr;
     }
-    virtual void push(T data){
+    virtual LinearIter<T>* push(T data){
         node<T>* elem = new node<T>(data);
         if(this->curr){
             this->curr->next = elem;
@@ -37,6 +88,7 @@ public:
             this->first = elem;
         }
         this->curr = elem;
+        return this;
     }
     virtual void pop(){
         node<T>* elem = this->first;
@@ -49,6 +101,9 @@ public:
     T& data(){
         return (this->first->data);
     }
+    node<T>* bottom(){
+        return this->first;
+    }
 private:
     node<T>* first;
 };
@@ -58,8 +113,9 @@ template <typename T>
 class StackIter: public LinearIter<T>{
 public:
     StackIter(node<T>* n = nullptr): LinearIter<T>(n){}
-    virtual void push(T data){
+    virtual LinearIter<T>* push(T data){
         this->curr = new node<T>(data, this->curr);
+        return this;
     }
     virtual void pop(){
         node<T>* elem = this->curr;
@@ -73,14 +129,14 @@ template <typename T>
 class DlistIter: public LinearIter<T>{
 public:
     DlistIter(node<T>* n = nullptr): LinearIter<T>(n){}
-    virtual void push(T data){
-        if(!this->curr) {this->curr = new node<T>(data); return;}
+    virtual LinearIter<T>* push(T data){
+        if(!this->curr) {this->curr = new node<T>(data); return this;}
         node<T>* elem = new node<T>(data, this->curr->next);
         this->curr->next = elem;
         elem->prev = this->curr;
         if(elem->next) elem->next->prev = elem;
         this->curr = elem;
-        
+        return this;
     }
     virtual void pop(){
         node<T>* elem = this->curr;
