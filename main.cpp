@@ -3,28 +3,23 @@
 using namespace std;
 
 int main (){
-    StackIter<int> l;
-    l.push(20);
+    DlistIter<int> l;
+    l.push(20); 
     l.push(30);
     l.push(40);
     l.push(50);
     cout << l.empty() << endl;
-    cout << l.back() << endl;
+    cout << l.data() << endl;
+    l.pop();
+    l.prev();
+    l.prev();
+    cout << l.data() << endl;
     l.pop();
     cout << l.data() << endl;
-    cout << l.back() << endl;
-    StackIter<int> k(l);
+    l.next();
     l.pop();
-    l.pop();
+    cout << l.data() << endl;
     l.pop();
     cout << l.empty() << endl;
-    cout << k.empty() << endl;
-    cout << k.back() << endl;
-    k.next();
-    cout << k.back() << endl;
-    k.next();
-    cout << k.back() << endl;
-    k.next();
-    cout << k.empty() << endl;
     return 0;
 }
