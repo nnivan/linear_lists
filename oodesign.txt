@@ -1,0 +1,32 @@
+_L = 0b00
+_D = 0b01
+_Q = 0b10
+_S = 0b11
+
+struct linearNode
+    -> data
+    -> next
+struct dlistNode: public linearNode
+    -> prev
+
+class LinearIter
+    -> self
+    -g> data()
+    -s> data(data)
+    -i> next()
+----
+    -i> back()
+    -s> push(data)
+    -s> pop()
+class DlistIter: public LinearIter
+    -i> back()
+    -s> push(data)
+    -s> pop()
+class StackIter: public LinearIter
+    -i> back()
+    -s> push(data)
+    -s> pop()
+class QueueIter: public LinearIter
+    -i> back()
+    -s> push(data)
+    -s> pop()
