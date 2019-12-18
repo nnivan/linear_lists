@@ -1,3 +1,4 @@
+
 clear
 rm err.log
 touch err.log

@@ -38,15 +38,24 @@ public:
     void print(){
         print_r(bottom());
     }
-    virtual LinearIter* push(T data) = 0;
-    virtual void pop() = 0;
-protected:
-    node<T>* curr;
     virtual node<T>* bottom(){
         node<T>* elem = curr;
         while(elem->prev) elem = elem->prev;
         return elem;
     }
+    virtual void sort(){
+        for(node<T>* i = this->bottom(); i; i=i->next){
+            for(node<T>* x = i; x; x=x->next){
+                if(!(i->data < x->data)){
+                    swap(i->data, x->data);
+                }
+            }
+        }
+    }
+    virtual LinearIter* push(T data) = 0;
+    virtual void pop() = 0;
+protected:
+    node<T>* curr;
 private:
     bool member_r(T const& x, node<T>* c) {
         if(x == c->data) return true;

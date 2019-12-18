@@ -1,4 +1,5 @@
 #include <iostream>
+#include <vector>
 using namespace std;
 
 #include "linear.h"
@@ -9,33 +10,36 @@ bool a(int k){
 
 int main (){
     Container<int> c;
-    c.create_container('d')
-        ->push(11)
-        ->push(12)
-        ->push(13)
-        ->push(14);
-    c.create_container('d')
-        ->push(21)
-        ->push(22)
-        ->push(23)
-        ->push(24);
-    c.create_container('s')
-        ->push(31)
-        ->push(32)
-        ->push(33)
-        ->push(34);
-    c.create_container('q')
-        ->push(41)
-        ->push(42)
-        ->push(43)
-        ->push(44);
-        
-    c[3]->push(45);
+    c.create_container(_D)
+        ->push(2)
+        ->push(4)
+        ->push(10)
+        ->push(3);
+    c.create_container(_Q)
+        ->push(20)
+        ->push(4)
+        ->push(1)
+        ->push(3);
+    c.create_container(_S)
+        ->push(2)
+        ->push(4)
+        ->push(1)
+        ->push(30);
+    c.create_container(_D)
+        ->push(2)
+        ->push(40)
+        ->push(1)
+        ->push(3);
     c.print();
-    c.begin();
-    while(c.current()){
-        // cout << c.current()->data << endl;
-        c.next();
+    vector<int> v;
+    c.toVector(v);
+    for(int i = 0; i < v.size(); i++){
+        cout << v[i] << ",  ";
     }
     return 0;
 }
+
+    // while(c.current()){
+    //     // cout << c.current()->data << endl;
+    //     c.next();
+    // }
